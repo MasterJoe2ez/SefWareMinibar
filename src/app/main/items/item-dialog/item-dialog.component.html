@@ -1,0 +1,117 @@
+<td-layout-nav toolbarTitle="{{md_data?'Edit Item':'Add Item'}}" class="container">
+  <button mat-icon-button td-menu-button mat-dialog-close>
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <ng-template>
+
+  </ng-template>
+  <td-layout-card-over cardTitle="{{data.name}}" cardSubtitle="">
+
+    <!--<div style="position: absolute;right: 20px;top: 20px;">-->
+    <!--<md-slide-toggle [ngModel]="!data.disable" (ngModelChange)="data.disable = !($event)" name="disable">Enable-->
+    <!--</md-slide-toggle>-->
+    <!--</div>-->
+
+    <mat-card-content class="push-bottom-none">
+      <form #dataForm="ngForm">
+        <input matInput
+               #$keyElement
+               #$keyControl="ngModel"
+               placeholder="$key"
+               [(ngModel)]="data.$key"
+               name="$key"
+        >
+
+        <div layout="row" class="push-top">
+          <mat-form-field flex>
+            <input matInput
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Item Name"
+                   [(ngModel)]="data.name"
+                   name="name"
+                   maxlength="250"
+                   required>
+            <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+          </mat-form-field>
+        </div>
+        <div layout="row">
+          <mat-form-field flex>
+            <input matInput
+                   #idElement
+                   #idControl="ngModel"
+                   placeholder="id"
+                   [(ngModel)]="data.id"
+                   name="id"
+                   maxlength="15"
+            >
+          </mat-form-field>
+        </div>
+
+        <div layout="row">
+          <mat-form-field flex>
+            <input matInput
+                   #amountElement
+                   #amountControl="ngModel"
+                   placeholder="Amount"
+                   [(ngModel)]="data.amount"
+                   name="amount"
+            >
+          </mat-form-field>
+        </div>
+        <div layout="row">
+          <mat-form-field flex>
+            <input matInput
+                   #costElement
+                   #costControl="ngModel"
+                   placeholder="cost"
+                   [(ngModel)]="data.cost"
+                   name="cost"
+                   maxlength="20"
+            >
+          </mat-form-field>
+        </div>
+        <div layout="row">
+          <mat-form-field flex>
+            <input matInput
+                   #sellElement
+                   #sellControl="ngModel"
+                   placeholder="sell"
+                   [(ngModel)]="data.sell"
+                   name="sell"
+                   maxlength="15"
+            >
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-content style="padding:0 16px;padding-bottom: 10px">
+      <mat-list>
+        <mat-divider></mat-divider>
+        <ng-template let-item let-last="last" ngFor [ngForOf]="data.attachments">
+          <mat-list-item [title]="item.name">
+            <mat-icon mat-list-avatar class="material-icons mat-icon mat-list-avatar" aria-label="watch">
+              attach_file
+            </mat-icon>
+            <span flex></span>
+              <mat-icon>close</mat-icon>
+
+          </mat-list-item>
+        </ng-template>
+      </mat-list>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button class="text-upper" [disabled]="!dataForm.form.valid" color="primary"
+              (click)="saveData(dataForm.form)">Save
+      </button>
+      <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
+    </mat-card-actions>
+  </td-layout-card-over>
+</td-layout-nav>
