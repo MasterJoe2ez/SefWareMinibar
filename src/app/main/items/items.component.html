@@ -1,0 +1,45 @@
+<mat-toolbar >
+  <div layout="row" layout-align="start center" flex>
+    <span>
+      <!--<button md-icon-button md-tooltip="History"><md-icon>history</md-icon></button>-->
+      <!--<button md-icon-button md-tooltip="More..." [mdMenuTriggerFor]="toolbarMenu"><md-icon>more_vert</md-icon></button>-->
+      <!--<md-menu #toolbarMenu="mdMenu">-->
+      <!--<button md-menu-item>-->
+      <!--<md-icon>file_download</md-icon>-->
+      <!--<span>Export</span>-->
+      <!--</button>-->
+      <!--</md-menu>-->
+      <a mat-raised-button tdMediaToggle="xs" [mediaStyles]="{display: 'none'}" color="primary" (click)="addData()">
+        <mat-icon>add</mat-icon>
+        Add Item</a>
+    </span>
+
+  </div>
+  <!--<mat-progress-bar  class="progress" mode="indeterminate"></mat-progress-bar>-->
+</mat-toolbar>
+
+<table td-data-table>
+  <thead>
+  <tr td-data-table-column-row>
+    <th td-data-table-column
+        *ngFor="let column of columns"
+        [numeric]="column.numeric">
+      {{column.label}}
+    </th>
+    <th td-data-table-column>
+      <mat-icon>comment</mat-icon>
+      <span>edit</span>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr td-data-table-row *ngFor="let row of items">
+    <td td-data-table-cell *ngFor="let column of columns" [numeric]="column.numeric">
+      {{column.format ? column.format(row[column.name]) : row[column.name]}}
+    </td>
+    <td td-data-table-cell (click)="editData(row)">
+      <button mat-button [class.mat-accent]="!row['edit']">{{row['edit'] || 'Edit'}}</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
